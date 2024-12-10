@@ -43,4 +43,3 @@ ramp-test --help
 
 You can find more information regarding `ramp-workflow` in the
 [dedicated documentation](https://paris-saclay-cds.github.io/ramp-docs/ramp-workflow/stable/using_kits.html)
->>>>>>> Initial commit
