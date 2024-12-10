@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-# lwfa
-RAMP challenge for object detection in Smilie simulation of Laser Wakefield Acceleration Scenario
-=======
 # RAMP starting-kit object detection in Laser Wakefield Acceleration Simulation outputs from the Smilei PIC code 
 
 Authors : Mathieu Lobet, Hiba Taher, Martial Mancip, Merieme BOURENANE, (Maison de la Simulation, Saclay), Francesco Massimo (LPGP, Univ. Paris-Saclay), François Caud, Thomas Moreau (DATAIA, Univ. Paris-Saclay)
