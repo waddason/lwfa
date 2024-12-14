@@ -13,13 +13,12 @@ class utils:
     """Utility functions helpful in the challenge."""
 
     sys.path.append(os.path.abspath(os.path.dirname(__file__)))
-    from ramp_custom.scoring import (
+    from ramp_custom_lwfa.scoring import (
         ClassAveragePrecision,
         MeanAveragePrecision,
     )
-    from ramp_custom.predictions import make_custom_predictions
-    from ramp_custom import geometry
-    from ramp_custom.geometry import apply_NMS_to_predictions
+    from ramp_custom_lwfa.predictions import make_custom_predictions
+    from ramp_custom_lwfa.geometry import apply_NMS_to_predictions
 
 
 problem_title = "Object Detection in Laser Wakefield Acceleration Simulation"
