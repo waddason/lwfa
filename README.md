@@ -1,13 +1,13 @@
 # RAMP starting-kit object detection in Laser Wakefield Acceleration Simulation outputs from the Smilei PIC code 
 
-Authors : Mathieu Lobet, Hiba Taher, Martial Mancip, Merieme BOURENANE, (Maison de la Simulation, Saclay), Francesco Massimo (LPGP, Univ. Paris-Saclay), François Caud, Thomas Moreau (DATAIA, Univ. Paris-Saclay)
+Authors : Mathieu Lobet, Hiba Taher, Martial Mancip, Merieme Bourenane (Maison de la Simulation, Saclay), Francesco Massimo (LPGP, Univ. Paris-Saclay), François Caud, Thomas Moreau (DATAIA, Univ. Paris-Saclay)
 
 ## Getting started
 
 ### Install
 
 To run a submission and the notebook you will need the dependencies listed
-in `requirements.txt`. You can install install the dependencies with the
+in `requirements.txt`. You can install the dependencies with the
 following command-line:
 
 ```bash
