@@ -32,6 +32,11 @@ To run a specific submission, you can use the `ramp-test` command line:
 ```bash
 ramp-test --submission my_submission
 ```
+In case of a very long ramp-test, you can select a subset of the data to run it with
+the '--quick-test' option (if available in problem.py)
+```bash
+ramp-test --submission my_submission --quick-test
+```
 
 You can get more information regarding this command line:
 
