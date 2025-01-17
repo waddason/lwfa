@@ -186,7 +186,8 @@ def _get_data(path=".", split="train"):
         groups_sorted_by_count = sorted(group_counts.items(),
                                         key=lambda x: x[1],
                                         reverse=True)
-        top_groups = [group for group, count in groups_sorted_by_count[:n_groups]]
+        top_groups = [group for group,
+                      count in groups_sorted_by_count[:n_groups]]
 
         # Get the last 4 examples from each of the 5 groups
         quick_test_indices = []
@@ -234,7 +235,7 @@ def get_cv(X, y, random_state=42):
     # Extract simulation numbers from file paths
     groups = []
     for x in X:
-        sim_num = re.match(r'.*/S(\d{3})_', x['id'][0]).group(1)
+        sim_num = re.match(rf'.*{os.sep}S(\d{{3}})_', x['id'][0]).group(1)
         groups.append(sim_num)
 
     # Convert to numpy array for consistent handling
