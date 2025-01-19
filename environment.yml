@@ -17,7 +17,7 @@ dependencies:
   - joblib
   - transformers
   - datasets
-
+  - albumentations
 
   - pip
   - pip:

@@ -3,3 +3,4 @@ torch  # pytorch pytorch-cuda
 torchvision
 transformers
 datasets
+albumentations
