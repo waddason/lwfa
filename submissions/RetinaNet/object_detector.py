@@ -1,32 +1,32 @@
 import numpy as np
 
 import torch
+from functools import partial
 from torch import nn
 from torchvision.models.detection import (
     retinanet_resnet50_fpn_v2,
     RetinaNet_ResNet50_FPN_V2_Weights,
 )
+from torchvision.models.detection.retinanet import RetinaNetClassificationHead
 
-from torchvision.models.detection import fasterrcnn_resnet50_fpn
-from torchvision.models.detection import FasterRCNN_ResNet50_FPN_Weights
-from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
-
+# from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 from torchvision.models.detection.transform import GeneralizedRCNNTransform
+from tqdm import tqdm
 import torch.optim as optim
 
 
 class ObjectDetector:
     def __init__(self):
         # Initialize model with pretrained weights
-        weights = RetinaNet_ResNet50_FPN_V2_Weights.DEFAULT
+        weights = RetinaNet_ResNet50_FPN_V2_Weights.COCO_V1
         # Replace the classifier with a new one
         # for our number of classes (4 + background)
         num_classes = 5  # 4 classes + background
 
         self.model = retinanet_resnet50_fpn_v2(
-            weights=weights, num_classes=num_classes
+            weights=weights,
         )
-
+        # print(self.model)
         # Modify the first conv layer to accept 2 channels instead of 3
         # original_conv = self.model.backbone.body.conv1
         self.model.backbone.body.conv1 = nn.Sequential(
@@ -34,6 +34,20 @@ class ObjectDetector:
             nn.BatchNorm2d(64),
             nn.ReLU(inplace=True),
         )
+
+        # replace the classifier with a new one, that has
+        # num_classes which is user-defined
+        num_classes = 4 + 1  # 1 class (person) + background
+        num_anchors = (
+            self.model.head.classification_head.num_anchors
+        )  # Should be 9
+        self.model.head.classification_head = RetinaNetClassificationHead(
+            in_channels=256,
+            num_anchors=num_anchors,
+            num_classes=num_classes,
+            norm_layer=partial(torch.nn.GroupNorm, 32),
+        )
+
         # Create new transform with 2-channel normalization
         min_size = 640
         max_size = 800  # very close to 798
@@ -161,7 +175,9 @@ class ObjectDetector:
         num_epochs = 1
         for epoch in range(num_epochs):
             epoch_loss = 0
-            for images, targets in data_loader:
+            for images, targets in tqdm(
+                data_loader, desc=f"Epoch {epoch + 1}/{num_epochs}"
+            ):
                 optimizer.zero_grad()
 
                 # Move input data to the device
@@ -172,6 +188,7 @@ class ObjectDetector:
                 ]
 
                 loss_dict = self.model(images, targets)
+                # print(f"Target\n{targets}")
                 losses = sum(loss for loss in loss_dict.values())
 
                 losses.backward()
