@@ -172,7 +172,7 @@ class ObjectDetector:
         )
 
         # Training loop
-        num_epochs = 1
+        num_epochs = 10
         for epoch in range(num_epochs):
             epoch_loss = 0
             for images, targets in tqdm(
@@ -188,6 +188,7 @@ class ObjectDetector:
                 ]
 
                 loss_dict = self.model(images, targets)
+                # print(f"Loss dict: {loss_dict}")
                 # print(f"Target\n{targets}")
                 losses = sum(loss for loss in loss_dict.values())
 
@@ -221,6 +222,11 @@ class ObjectDetector:
                     # Add batch dimension back
                     img = single_img.unsqueeze(0)  # [1, C, H, W]
                     pred = self.model(img)[0]
+
+                    # Print shapes for verification
+                    # print(f"Image shape: {img.shape}")
+                    # print(f"Prediction shapes: {{'boxes': {pred['boxes'].shape}, 'labels': {pred['labels'].shape}, 'scores': {pred['scores'].shape}}}")
+                    # print(f"\tnboxes: {pred['boxes'].shape}")
                     img_preds = []
                     # print(f"Boxes: {pred['boxes']}")
                     # print(f"Labels: {pred['labels']}")
@@ -254,5 +260,5 @@ class ObjectDetector:
                             img_preds.append(pred_dict)
 
                     predictions.append(img_preds)
-
+        # print(f"Predictions: {predictions[0]}")
         return np.array(predictions, dtype=object)
